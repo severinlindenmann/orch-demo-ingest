@@ -16,3 +16,8 @@ class Backoff(unittest.TestCase):
 class Parse(unittest.TestCase):
     def test_rows(self):
         self.assertEqual(parse_export("meter,kwh\nm1,3\n"), [{"meter": "m1", "kwh": "3"}])
+
+
+class TooManyRequests(unittest.TestCase):
+    def test_429_without_retry_after_waits_30s(self):
+        self.assertEqual(backoff_seconds(1, retry_after=None, status=429), 30)

@@ -16,3 +16,6 @@ class Backoff(unittest.TestCase):
 class Parse(unittest.TestCase):
     def test_rows(self):
         self.assertEqual(parse_export("meter,kwh\nm1,3\n"), [{"meter": "m1", "kwh": "3"}])
+
+    def test_empty_export(self):
+        self.assertEqual(parse_export(""), [])
